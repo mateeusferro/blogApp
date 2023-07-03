@@ -1,0 +1,29 @@
+<div class="jumbotron">
+  <h1 class="display-4">Welcome to geek blog</h1>
+  <p class="lead">This is a simple blog developed with NodeJS + Express + MongoDB.</p>
+  <hr class="my-4">
+  <p>Here you will see the news about the computing world.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg mt-4" href="#" role="button">Create an account</a>
+  </p>
+</div>
+
+<hr>
+
+<h2>Recent posts</h2>
+
+{{#each posts}}
+<div class="card mt-2">
+    <div class="card-body">
+        <h3>{{title}}</h3>
+        <p>{{description}}</p>
+        <a href="/post/{{slug}}"><button class="btn btn-success">See more</button></a>
+        <hr>
+        <h9>Category: {{category.name}}</h9><br>
+        <h9>Publication date: {{date}}</h9>
+    </div>
+</div>
+
+{{else}}
+<h5>No posts</h5>
+{{/each}}

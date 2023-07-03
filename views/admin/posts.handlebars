@@ -1,0 +1,18 @@
+<h2>Post list: </h2>
+<hr>
+<a href="/admin/posts/add"><button class="btn btn-success">New post</button></a>
+
+{{#each posts}}
+<div class="card mt-3">
+    <div class="card-body">
+        <h4>Title: {{title}}</h4>
+        <p>Description: {{description}}</p>
+        <small>Date: {{date}}</small><br>
+        <small>Category: {{category.name}}</small><br>
+        <a href="/admin/posts/edit/{{_id}}"><button class="btn btn-success mt-2">Edit Post</button></a>
+        <a href="/admin/posts/delete/{{_id}}"><button class="btn btn-danger mt-2">Delete Post</button></a>
+    </div>
+</div>
+{{else}}
+    <h4 class="mt-3">No post resgitered</h4>
+{{/each}}
