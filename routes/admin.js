@@ -63,6 +63,19 @@ router.get("/categories/edit/:id", isAdmin, (req, res) =>{
 })
 
 router.post("/categories/edit", isAdmin, (req, res) =>{
+    var errors = []
+
+    if(!req.body.name || typeof req.body.name == undefined || req.body.name == null){
+        errors.push({text: "Invalid name"})
+    }
+
+    if(!req.body.slug || typeof req.body.slug == undefined || req.body.slug == null){
+        errors.push({text: "Invalid slug"})
+    }
+
+    if(errors.length != 0){
+        res.render("admin/addCategories", {errors: errors})
+    } else{
     Category.findOne({_id: req.body.id}).then((category) =>{
         category.name = req.body.name
         category.slug = req.body.slug
@@ -78,6 +91,7 @@ router.post("/categories/edit", isAdmin, (req, res) =>{
         req.flash("error_msg", "There was an error editing the category, please try again")
         res.redirect("/admin/categories")
     })
+}
 })
 
 router.post("/categories/delete", isAdmin, (req, res) =>{
@@ -111,6 +125,22 @@ router.get("/posts/add", isAdmin, (req, res) =>{
 router.post("/posts/new", isAdmin, (req, res) =>{
     var errors = []
 
+    if(!req.body.title || typeof req.body.title == undefined || req.body.title == null){
+        errors.push({text: "Invalid title"})
+    }
+
+    if(!req.body.slug || typeof req.body.slug == undefined || req.body.slug == null){
+        errors.push({text: "Invalid slug"})
+    }
+
+    if(!req.body.description || typeof req.body.description == undefined || req.body.description == null){
+        errors.push({text: "Invalid description"})
+    }
+
+    if(!req.body.content || typeof req.body.content == undefined || req.body.content == null){
+        errors.push({text: "Invalid content"})
+    }
+    
     if(req.body.category == "0"){
         errors.push({text: "Register a category"})
     }
@@ -151,7 +181,32 @@ router.get("/posts/edit/:id", isAdmin, (req, res) =>{
 })
 
 router.post("/posts/edit", isAdmin, (req, res) =>{
+
+    var errors = []
     
+    if(!req.body.title || typeof req.body.title == undefined || req.body.title == null){
+        errors.push({text: "Invalid title"})
+    }
+
+    if(!req.body.slug || typeof req.body.slug == undefined || req.body.slug == null){
+        errors.push({text: "Invalid slug"})
+    }
+
+    if(!req.body.description || typeof req.body.description == undefined || req.body.description == null){
+        errors.push({text: "Invalid description"})
+    }
+
+    if(!req.body.content || typeof req.body.content == undefined || req.body.content == null){
+        errors.push({text: "Invalid content"})
+    }
+
+    if(req.body.category == "0"){
+        errors.push({text: "Register a category"})
+    }
+
+    if(errors.length != 0){
+        res.render("admin/addCategories", {errors: errors})
+    } else{
     Post.findOne({_id: req.body.id}).then((post) =>{
         post.title = req.body.title
         post.slug = req.body.slug
@@ -171,6 +226,7 @@ router.post("/posts/edit", isAdmin, (req, res) =>{
         req.flash("error_msg", "There was an error editing the post, please try again")
         res.redirect("/admin/posts")
     })
+}
 })
 
 router.get("/posts/delete/:id", isAdmin, (req, res) =>{
